@@ -163,9 +163,7 @@
         .property-img {
             width: 100%;
             height: 220px;
-            object-fit: contain;   /* Cijela slika stane unutar okvira, bez rezanja */
-            background-color: #f0f2f5;  /* Siva pozadina dok se učitava/ako je slika manja */
-            display: block;
+            object-fit: cover;
         }
 
         .property-info {
@@ -236,19 +234,13 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            background: #e9ecef;   /* pozadina dok se slika učitava */
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: #eee;
         }
 
         .main-img-wrapper img {
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
-            object-fit: contain;   /* cijela slika stane, bez rezanja */
-            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             transition: opacity 0.3s ease-in-out;
         }
 
@@ -268,7 +260,6 @@
             justify-content: center;
             align-items: center;
             transition: background 0.3s;
-            z-index: 5;
         }
 
         .gallery-btn:hover {
@@ -289,7 +280,7 @@
         .thumbnail {
             width: 80px;
             height: 60px;
-            object-fit: cover;    /* za thumbnails je bolje cover jer su mali */
+            object-fit: cover;
             border-radius: 4px;
             cursor: pointer;
             opacity: 0.5;
@@ -389,13 +380,6 @@
             display: block;
         }
 
-        footer {
-            background: var(--primary-color);
-            color: white;
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px 0;
-        }
     </style>
 </head>
 <body>
@@ -481,8 +465,8 @@
                         <h3>Beschreibung</h3>
                         <div id="detail-desc" style="margin-top: 10px; line-height: 1.8;">Beschreibungstext hier...</div>
                         
-                        <h3 style="margin-top: 20px;">Highlights</h3>
-                        <ul class="features-list" id="detail-features">
+                        <h3 style="margin-top: 20px; display: none;">Highlights</h3>
+                        <ul class="features-list" id="detail-features" style="display: none;">
                             </ul>
 
                         <div class="contact-box">
@@ -515,7 +499,7 @@
     </footer>
 
     <script>
-        // OVDJE UNOSIŠ SVOJA ZEMLJIŠTA (možeš dodati i više slika)
+        // OVDJE UNOSIŠ SVOJA ZEMLJIŠTA
         const properties = [
             {
                 id: 1,
@@ -561,16 +545,16 @@ Für weitere Informationen und individuelle Vereinbarungen senden Sie uns bitte 
             },
             {
                 id: 2,
-                title: "Grundstück am Fluss",
-                location: "Bihać, Una Nationalpark Nähe",
+                title: "Grundstück 418",
+                location: "Bosanski Petrovac",
                 price: "60.000",
                 size: "1.800",
                 images: [
-                    "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                    "https://i.imgur.com/i5AtA0w.jpeg",
                     "https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
                 ],
                 description: "Einzigartige Gelegenheit! Grundstück in unmittelbarer Nähe zum kristallklaren Fluss Una. Perfekt für den Bau eines Ferienhauses oder für touristische Vermietung.",
-                features: ["Direkter Zugang zum Wasser (100m entfernt)", "Touristisch sehr attraktive Zone", "Ruhige Nachbarschaft", "Baugenehmigung möglich"]
+                features: ["https://maps.app.goo.gl/gmYZeUyUfLJmxz4GA", "Touristisch sehr attraktive Zone", "Ruhige Nachbarschaft", "Baugenehmigung möglich"]
             },
             {
                id: 3,
@@ -614,7 +598,7 @@ Für weitere Informationen und individuelle Vereinbarungen senden Sie uns bitte 
                 const mainImage = prop.images && prop.images.length > 0 ? prop.images[0] : '';
 
                 card.innerHTML = `
-                    <img src="${mainImage}" alt="${prop.title}" class="property-img" loading="lazy">
+                    <img src="${mainImage}" alt="${prop.title}" class="property-img">
                     <div class="property-info">
                         <div class="property-specs">
                             <span>📍 ${prop.location}</span>
@@ -660,11 +644,7 @@ Für weitere Informationen und individuelle Vereinbarungen senden Sie uns bitte 
         }
 
         function updateGalleryUI() {
-            if (currentGalleryImages.length === 0) {
-                // Ako nema slika, prikaži placeholder
-                document.getElementById('detail-main-image').src = "https://via.placeholder.com/800x400?text=Kein+Bild";
-                return;
-            }
+            if (currentGalleryImages.length === 0) return;
 
             const mainImageEl = document.getElementById('detail-main-image');
             mainImageEl.src = currentGalleryImages[currentImageIndex];
@@ -676,7 +656,6 @@ Für weitere Informationen und individuelle Vereinbarungen senden Sie uns bitte 
                 const thumb = document.createElement('img');
                 thumb.src = imgSrc;
                 thumb.className = 'thumbnail' + (index === currentImageIndex ? ' active' : '');
-                thumb.alt = `Vorschau Bild ${index+1}`;
                 
                 thumb.onclick = () => {
                     currentImageIndex = index;
@@ -757,5 +736,6 @@ Für weitere Informationen und individuelle Vereinbarungen senden Sie uns bitte 
             renderListings();
         };
     </script>
+
 </body>
 </html>
