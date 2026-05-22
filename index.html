@@ -380,6 +380,11 @@
         }
 
         /* ============ LISTINGS ============ */
+        /* Dodato: pomeranje cele sekcije nadole da naslov ne ulazi u header */
+        #view-listings {
+            padding-top: 80px;
+        }
+
         .listings-header {
             padding: 40px 0 10px;
             text-align: center;
@@ -938,6 +943,9 @@
 
         /* ============ RESPONSIVE ============ */
         @media (max-width: 768px) {
+            #view-listings {
+                padding-top: 70px;
+            }
             .nav-container {
                 flex-wrap: wrap;
                 gap: 8px;
@@ -1038,6 +1046,9 @@
         }
 
         @media (max-width: 480px) {
+            #view-listings {
+                padding-top: 60px;
+            }
             .nav-links {
                 gap: 2px;
             }
